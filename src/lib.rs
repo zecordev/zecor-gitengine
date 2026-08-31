@@ -196,7 +196,7 @@ pub fn log(repo_dir: &Path, rev: &str, limit: usize) -> Result<Vec<LogEntry>> {
             summary,
             author: author.name.to_str_lossy().into_owned(),
             email: author.email.to_str_lossy().into_owned(),
-            time: author.time.seconds,
+            time: author.time().map(|t| t.seconds).unwrap_or(0),
             parents: commit.parent_ids().map(|p| p.to_string()).collect(),
         });
     }
